@@ -62,14 +62,17 @@ nav {
     justify-content: space-evenly;
 }
 
-nav>a,
-nav>a:visited {
+nav>a:any-link { /* Seleciona as pseudos link e visited */
     color: #000;
 }
 
-nav>a:hover,
-nav>a:focus {
+nav :is(a:hover, a:focus) { /* DRY: para não repetir o seletor nav */
+    /* Obs.: prestar atenção na especificidade ao utilizar :is. A pseudo :where zera toda a especificidade. */
     color: hsl(0, 0%, 20%, 0.6);
+}
+
+nav > a:active {
+    color: red;
 }
 
 main {
@@ -99,6 +102,37 @@ footer {
     align-items: center;
     transition: all .2s;
 }
+
+.card:target { /* Atua no elemento selecionado no momento. */
+    border: 3px solid rebeccapurple;
+    box-shadow: 3px 3px 3px 8px rgba(0, 0, 0, 0.247);
+}
+
+.card figcaption::before {
+    content: '✨';
+    display: block;
+}
+
+.card p {
+    position: relative;
+}
+
+.card p::before {
+    content: open-quote;
+    font-size: 2.5em;
+    position: absolute;
+    top: -20px;
+    left: -25px;
+}
+
+.card p::after {
+    content: close-quote;
+    font-size: 2.5em;
+    position: absolute;
+    top: -20px;
+    right: -25px;
+}
+
 
 .card > figure {
     display: flex;
